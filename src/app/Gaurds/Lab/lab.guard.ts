@@ -17,7 +17,7 @@ export class LabGuard implements CanActivate {
       var type = CryptoJs.AES.decrypt(sessionStorage.getItem("type"),"Hello!").toString(CryptoJs.enc.Utf8)
       console.log("type:",type)
       
-      if(sessionStorage.getItem("isLogged") == 'true' && type.toLowerCase() == "doctor")
+      if(sessionStorage.getItem("isLogged") == 'true' && type.toLowerCase() == "lab")
         return true
       
       else{
