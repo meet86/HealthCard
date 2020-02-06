@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject  } from 'rxjs';
 import { LoginStat } from './Classes/Login/login-stat';
 import { ToastrService } from "ngx-toastr";
 import { Subject } from "rxjs";
@@ -26,17 +26,100 @@ export class RegisterService {
     private Toastr: ToastrService,
   ) {}
 
-  register(licence, name, shop_name, contact, password, address, user) {
+
+  private listusers = new Subject<any>()
+      public alluser:any
+      changeelectroProductt(search:any)
+      {
+      //  console.log('auth changep')
+        this.listusers.next(search)
+      }
+      getelectroproductlistt(){
+        return this.alluser
+      }
+cast9Listener() {
+  return this.listusers.asObservable();
+}
+getuser(){
+  
+  this.http.get('http://localhost:8000/getusers/')
+    .subscribe((response:any)=>{
+      this.alluser = JSON.stringify(response.alluser)
+      this.listusers.next(this.alluser)
+      console.log("Users:",this.alluser)
+    })
+    
+}
+  register(password,fname,lname,email,blood,dob,contact,address,user,licence,labname,DOE,lab_address,selectedItems) {
     //console.log("in registershop");
-    this.http
-      .post("http://localhost:8000/register", {
-        licence,
-        name,
-        shop_name,
-        contact,
+    this.http.get('http://localhost:8000/getUserId/'+fname+'/'+lname+'/'+user+'/'+dob)
+    .subscribe((response:any)=>{
+      var userId = response.userId
+      this.http
+      .post("http://localhost:8000/registeruser", {
+        fname,
+        lname,
         password,
         address,
-        user
+        contact,
+        dob,
+        blood,
+        email,
+        user,
+        userId
+      })
+      .subscribe((response: any) => {
+      if(user == "lab")
+      {
+      this.http
+        .post("http://localhost:8000/register", {
+          userId,password,fname,lname,email,blood,dob,contact,address,user,licence,labname,DOE,lab_address,selectedItems
+        })
+        .subscribe((response: any) => {
+          if (response.success) {
+            console.log("Inserted Successfully");
+            this.Toastr.success("Registration of  Lab successfull!!");
+          }
+        });
+    }
+  })
+  })
+};
+uploadreport(fd,selected)
+{
+  console.log("selected item",selected)
+
+  this.http
+  .post("http://localhost:8000/upload/"+selected.name,{fd})
+  .subscribe((response: any) => {
+    if (response.success) {
+      console.log("Inserted Successfully");
+      this.Toastr.success("Report Uploaded!!");
+    }
+  });
+}
+    registermedic(password,fname,lname,email,blood,dob,contact,address,user,licence,shopname,DOE,shop_address,)
+    {
+      this.http.get('http://localhost:8000/getUserId/'+fname+'/'+lname+'/'+user+'/'+dob)
+      .subscribe((response:any)=>{
+        var userId = response.userId
+        this.http
+        .post("http://localhost:8000/registeruser", {
+          fname,
+          lname,
+          password,
+          address,
+          contact,
+          dob,
+          blood,
+          email,
+          user,
+          userId
+        })
+        .subscribe((response: any) => {
+      this.http
+      .post("http://localhost:8000/registermedic", {
+        userId,password,fname,lname,email,blood,dob,contact,address,user,licence,shopname,DOE,shop_address
       })
       .subscribe((response: any) => {
         if (response.success) {
@@ -44,7 +127,9 @@ export class RegisterService {
           this.Toastr.success("Registration of medical shop successfull!!");
         }
       });
-  }
+    })
+  })
+    }
 
 
   getUserId(fname,lname,dob,user)

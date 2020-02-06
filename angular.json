@@ -30,7 +30,11 @@
               "src/assets/css/slick.css",
               "src/assets/css/style.css"
             ],
-            "scripts": []
+            "scripts": [
+
+                "../HealthCard/src/assets/js/bootstrap.min.js"
+
+]
           },
           "configurations": {
             "production": {

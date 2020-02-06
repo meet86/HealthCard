@@ -38,8 +38,30 @@ export class Signup2Component implements OnInit {
     private Toastr: ToastrService,
     private register: RegisterService
   ) {}
-
+  
   ngOnInit() {
+    this.dropdownList = [
+      { item_id: 1, item_text: 'Full Blood Examination' },
+      { item_id: 2, item_text: 'Iron studies' },
+      { item_id: 3, item_text: 'TSH (Thyroid Stimulating Hormone) Quantification' },
+      { item_id: 4, item_text: 'Urinalysis' },
+      { item_id: 5, item_text: 'INR (International Normalized Ratio)' }
+    ];
+    this.selectedItems = [
+      { item_id: 1, item_text: 'Full Blood Examination' },
+   ];
+    this.dropdownSettings= {
+      singleSelection: false,
+      idField: 'item_id',
+      textField: 'item_text',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 3,
+    //  allowSearchFilter: true
+    };
+   
+
+  
     var basicForm = history.state;
     console.log(JSON.stringify(basicForm));
     this.fname = basicForm.fname;
@@ -51,6 +73,9 @@ export class Signup2Component implements OnInit {
     this.user = basicForm.user;
     this.email = basicForm.email;
     this.dob = basicForm.dob;
+    this.address = basicForm.address;
+    this.email = basicForm.email;
+    this.contact=basicForm.contact;
     this.dropdownSettings = {
       singleSelection: false,
       idField: "item_id",
@@ -75,7 +100,62 @@ export class Signup2Component implements OnInit {
     //   this.dob
     // );
   }
+ 
+  registerLab(form) {
+    if(this.user == "lab")
+    {
+    
+    var licence =form.licence.value;
+    var labname = form.lab_name.value;
+    var DOE=form.DOE.value;
+    var lab_address=form.address.value;
+  //  var l=form.l1.value;
+console.log("selected",this.selectedItems);
+    //qvar contact = form.contact.value;
+    //console.log(licence, shopname);
+    this.register.register(
+      this.password,
+      this.fname,
+      this.lname,
+      this.email,
+      this.blood,
+      this.dob,
+      this.contact,
+      this.address,
+      this.user,
+      licence,
+      labname,
+      DOE,
+      lab_address,
+      this.selectedItems
 
+   );
+    }
+    if(this.user == "medic")
+    {
+      var licence =form.licence.value;
+    var labname = form.lab_name.value;
+    var DOE=form.DOE.value;
+    var shop_address=form.address.value;
+      console.log("medic")
+      this.register.registermedic(
+        this.password,
+        this.fname,
+        this.lname,
+        this.email,
+        this.blood,
+        this.dob,
+        this.contact,
+        this.address,
+        this.user,
+        licence,
+        labname,
+        DOE,
+        shop_address,  
+     );
+
+    }
+  }
   addSpeciality() {
     this.specialities.push({
       speciality: ""
@@ -106,16 +186,8 @@ export class Signup2Component implements OnInit {
   //   var shopname = form.lab_name.value;
   //   var contact = form.contact.value;
   //   //  console.log(licence , shopname)
-  //   this.register.register(
-  //     licence,
-  //     this.name,
-  //     shopname,
-  //     contact,
-  //     this.password,
-  //     this.address,
-  //     this.user
-  //   );
-  // }
+     
+   
 
   registerDoc(form) {
     this.specialities.forEach(spec => {
@@ -140,6 +212,7 @@ export class Signup2Component implements OnInit {
       form.work_address.value
     );
   }
+}
   // registerPatient(form) {
   //   //console.log("In com");
   //   var contact = form.contact.value;
@@ -159,4 +232,4 @@ export class Signup2Component implements OnInit {
   //     this.user
   //   );
   // }
-}
+

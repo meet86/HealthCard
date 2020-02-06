@@ -1,0 +1,77 @@
+
+<!--::regervation_part start::-->
+<section class="regervation_part section_padding">
+  <div class="container">
+    <div class="row align-items-center regervation_content">
+      <div class="col-lg-7">
+        <div class="regervation_part_iner">
+          <form enctype="multipart/form-data">
+            <h2>Upload Report</h2>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <input
+                  type="file"
+                  class="form-control"
+                  #fileInput
+                  multiple
+                  name="image"
+                  (change)="onFileSelected($event)"
+                />
+              </div>
+            </div>
+
+            <!--  <ng-multiselect-dropdown
+              name="l1"
+              [placeholder]="'Select Patient'"
+              [data]="temp"
+              [(ngModel)]="selectedItems"
+              [settings]="dropdownSettings"
+             
+            >
+            </ng-multiselect-dropdown
+
+            >  -->
+            <div class="ng-autocomplete">
+              <ng-autocomplete 
+                [data]="temp"
+                [searchKeyword]="keyword"
+                (selected)="selectEvent($event)"
+                (inputChanged)="onChangeSearch($event)"
+                (inputFocused)="onFocused($event)"
+                [itemTemplate]="itemTemplate"
+                [notFoundTemplate]="notFoundTemplate"
+              >
+              </ng-autocomplete>
+
+              <ng-template #itemTemplate let-item>
+                <a style="color: #000000;" [innerHTML]="item.name"></a>
+              </ng-template>
+
+              <ng-template #notFoundTemplate let-notFound>
+                <div [innerHTML]="notFound"></div>
+              </ng-template>
+            </div>
+
+            <div class="regerv_btn">
+              <button class="btn_2" type="button" (click)="upload()">
+                Upload
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <!--from that -->
+
+      <div class="col-lg-5 col-md-6">
+        <div class="reservation_img">
+          <!-- <img
+              src="../../assets/img/reservation.png"
+              alt=""
+              class="reservation_img_iner"
+            /> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--::regervation_part end::-->
