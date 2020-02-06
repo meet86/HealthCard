@@ -38,17 +38,19 @@ export class SignupComponent implements OnInit {
       var dob = form.DOB.value;
       var contact = form.contact.value;
       var address = form.address.value;
-      this.registerService.registerUser(
-        fname,
-        lname,
-        password,
-        address,
-        contact,
-        dob,
-        blood,
-        email,
-        user
-      );
+      // this.registerService.registerUser(
+      //   fname,
+      //   lname,
+      //   password,
+      //   address,
+      //   contact,
+      //   dob,
+      //   blood,
+      //   email,
+      //   user
+      // );
+
+      this.registerService.getUserId(fname,lname,dob,user)
     } else {
       this.router.navigate(["/Signup2"], {
         state: {

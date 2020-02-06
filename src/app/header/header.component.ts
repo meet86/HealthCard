@@ -8,18 +8,13 @@ import { RegisterService } from '../register.service';
 })
 export class HeaderComponent implements OnInit {
 
-  public loginInfo
+  public isLogged
 
-  constructor(private registerService:RegisterService) { }
+  constructor(private registerService:RegisterService) { 
+    this.registerService.isLoggedCast.subscribe(stat=> this.isLogged=stat)
+  }
   
   ngOnInit() {
-    this.registerService.loginStatCaster.subscribe(info=>this.loginInfo=info)
-    if(sessionStorage.getItem("isLogged") != null)
-    {
-      var userId = sessionStorage.getItem("userId")
-      this.registerService.updateLoginStat(userId)
-    }
-    console.log('loginInfo:',this.loginInfo)
   }
   logout()
   {

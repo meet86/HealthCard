@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs';
 import { LoginStat } from './Classes/Login/login-stat';
 import { ToastrService } from "ngx-toastr";
 import { Subject } from "rxjs";
+import {map} from 'rxjs/operators';
 import * as CryptoJs from 'crypto-js';
 
 @Injectable({
@@ -14,8 +15,8 @@ import * as CryptoJs from 'crypto-js';
 export class RegisterService {
 
   
-  public loginStat = new BehaviorSubject<LoginStat>(new LoginStat())
-  public loginStatCaster = this.loginStat.asObservable()
+  public isLogged = new BehaviorSubject<boolean>(false)
+  public isLoggedCast = this.isLogged.asObservable()
 
   public userData = new BehaviorSubject<any>(null)
 
@@ -43,6 +44,24 @@ export class RegisterService {
           this.Toastr.success("Registration of medical shop successfull!!");
         }
       });
+  }
+
+
+  getUserId(fname,lname,dob,user)
+  {
+    console.log("userId")
+    this.http.get("http://localhost:8000/getUserId/" +
+    fname +
+    "/" +
+    lname +
+    "/" +
+    user +
+    "/" +
+    dob).pipe(
+      map(response=>{
+        console.log("response",response)
+      })
+    )
   }
 
   private specList = new Subject();
@@ -173,6 +192,7 @@ export class RegisterService {
           .subscribe((response: any) => {
             if (response.success) {
               console.log("Inserted Successfully");
+              this.router.navigate(["/Login"])
               this.Toastr.success("Registration of user successfull!!");
             } else {
               console.log("Registration Error");
@@ -191,7 +211,7 @@ export class RegisterService {
           var s = new LoginStat()
           s.isLogged = true
           s.userType = response.userType
-          this.loginStat.next(s)
+          this.isLogged.next(true)
 
           console.log(response)
           this.userData.next(response.userData)
@@ -213,10 +233,7 @@ export class RegisterService {
 
   logout()
   {
-    var s = new LoginStat()
-    s.isLogged = false
-    s.userType = null
-    this.loginStat.next(s)
+    this.isLogged.next(false)
     sessionStorage.removeItem("isLogged")
     sessionStorage.removeItem("userId")
     this.Toastr.success("Logged Out")

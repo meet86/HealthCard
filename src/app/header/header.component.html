@@ -13,8 +13,8 @@
 
                     <div class="collapse navbar-collapse main-menu-item justify-content-center"
                         id="navbarSupportedContent">
-                        <ul class="navbar-nav align-items-center">
-                            <li class="nav-item active">
+                        <ul *ngIf="!isLogged"  class="navbar-nav align-items-center">
+                            <!-- <li class="nav-item active">
                                 <a class="nav-link" href="index.html">Home</a>
                             </li>
                             <li class="nav-item">
@@ -48,20 +48,17 @@
 
                             <li class="nav-item">
                                 <a class="nav-link" href="contact.html">Contact</a>
-                            </li>
+                            </li> -->
 
                             <li> 
-                                <a *ngIf="!loginInfo.isLogged" class="nav-link" routerLink="/Login" >Login</a> 
+                                <a *ngIf="!isLogged" class="nav-link" routerLink="/Login" >Login</a> 
                                 <!-- <button class="btn btn-link" *ngIf="loginInfo.isLogged" (click)="logout()" >Logout</button>  -->
-                                <button class="btn btn" *ngIf="loginInfo.isLogged" (click)="logout()" >Logout</button>
+                                <button class="btn btn" *ngIf="isLogged" (click)="logout()" >Logout</button>
                             </li>
                             <li> <a class="nav-link" routerLink="/Signup">Sign Up</a></li>
                         </ul>
                         
                     <!-- <a class="btn_2 d-none d-lg-block" href="#">HOT LINE- 09856</a> -->
-                    <ul class="float-right">
-                            
-                        </ul>
                     </div>
                 </nav>
             </div>
