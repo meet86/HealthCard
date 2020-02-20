@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { BehaviorSubject, Subject  } from 'rxjs';
 import { LoginStat } from './Classes/Login/login-stat';
 import { ToastrService } from "ngx-toastr";
+import { Subject } from "rxjs";
 import * as CryptoJs from 'crypto-js';
 
 @Injectable({

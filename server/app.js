@@ -12,7 +12,7 @@ const user = require("./schemas/user");
 
 // const nJwt = require("njwt");
 // const keys = require("./keyConfig");
-//const doctor = require("./schemas/doctor");
+const doctor = require("./schemas/doctor");
 const specialities = require("./schemas/speciality");
 const dateFormater = require("date-format");
 

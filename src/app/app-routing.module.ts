@@ -8,6 +8,7 @@ import { PatientGuard } from "./Gaurds/patient.guard";
 import { AddPrescriptionComponent } from "./add-prescription/add-prescription.component";
 import {UploadreportComponent} from './uploadreport/uploadreport.component';
 import {HomeComponent} from './home/home.component'
+
 const routes: Routes = [
   { path: "Login", component: LoginComponent },
   { path: "Signup", component: SignupComponent },
