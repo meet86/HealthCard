@@ -261,6 +261,7 @@
                       type="text"
                       class="form-control"
                       [(ngModel)]="speciality.speciality"
+                      (keydown.Tab)="addSpeciality()"
                       name="speciality_{{ i }}"
                       placeholder="New Speciality"
                     />

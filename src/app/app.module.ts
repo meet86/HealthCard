@@ -15,7 +15,11 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { UploadreportComponent } from './uploadreport/uploadreport.component';
 import { PatientHomeComponent } from './Patient/patient-home/patient-home.component';
 import { QRCodeModule } from 'angularx-qrcode';
+
+import { AddPrescriptionComponent } from './add-prescription/add-prescription.component';
+
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +31,8 @@ import {AutocompleteLibModule} from 'angular-ng-autocomplete';
     Signup2Component,
     UploadreportComponent,
     PatientHomeComponent,
+    AddPrescriptionComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
